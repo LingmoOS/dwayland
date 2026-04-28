@@ -14,7 +14,7 @@ jobs:
   debian:
     name: Debian Testing
     runs-on: ubuntu-latest
-    container: docker.io/library/debian:testing
+    container: docker.io/library/debian:trixie
     steps:
       - name: Install Dependencies
         run: |
@@ -24,6 +24,11 @@ jobs:
       
       - name: Checkout Source
         uses: actions/checkout@v4
+
+      - name: Add Repository
+        run: |
+          echo 'deb http://download.opensuse.org/repositories/home:/LingmoOS/Debian_13/ /' | tee /etc/apt/sources.list.d/home:LingmoOS.list
+          curl -fsSL https://download.opensuse.org/repositories/home:LingmoOS/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_LingmoOS.gpg > /dev/null
 
       - name: Install build dependencies
         run: mk-build-deps -i -t "apt-get --yes" -r
