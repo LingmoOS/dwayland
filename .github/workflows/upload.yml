@@ -31,7 +31,7 @@ jobs:
           curl -fsSL https://download.opensuse.org/repositories/home:LingmoOS/Debian_13/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/home_LingmoOS.gpg > /dev/null
 
       - name: Install build dependencies
-        run: mk-build-deps -i -t "apt-get --yes" -r
+        run: apt build-dep . | true
 
       - name: Build source package
         run: |
